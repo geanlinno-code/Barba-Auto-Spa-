@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barba Auto SPA — Campo Limpo Paulista</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cinzel+Decorative:wght@700&family=Raleway:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0b1a35;
+    --navy2: #0e2147;
+    --gold: #c9943a;
+    --gold2: #e8c06a;
+    --gold-light: #f5d98a;
+    --cream: #f0e6cc;
+    --blue-mid: #1a3460;
+    --blue-glow: #1e4a8a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'Raleway', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* BRUSHED METAL TEXTURE */
+  body {
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.015) 0px,
+        rgba(255,255,255,0.015) 1px,
+        transparent 1px,
+        transparent 4px
+      ),
+      linear-gradient(180deg, #0b1a35 0%, #0a1628 100%);
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5rem;
+    background: rgba(10,20,45,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(201,148,58,0.3);
+  }
+
+  .nav-brand {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 20px rgba(201,148,58,0.5);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ===== HERO ===== */
+  header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(30,74,138,0.4) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(201,148,58,0.08) 0%, transparent 60%);
+  }
+
+  /* Gold sparkle lines */
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(45deg, transparent 48%, rgba(201,148,58,0.06) 50%, transparent 52%),
+      linear-gradient(-45deg, transparent 48%, rgba(201,148,58,0.04) 50%, transparent 52%);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-logo-wrap {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    margin: 0 auto 2.5rem;
+    animation: fadeUp 1s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-logo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,148,58,0.15) 0%, transparent 70%);
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .hero-logo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px rgba(201,148,58,0.4));
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tagline {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.5em;
+    font-size: 0.65rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    animation: fadeUp 1s 0.3s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--gold2) 0%, var(--gold-light) 40%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    animation: fadeUp 1s 0.4s ease forwards;
+    opacity: 0;
+    filter: drop-shadow(0 4px 20px rgba(201,148,58,0.3));
+  }
+
+  .hero-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem, 3vw, 1.6rem);
+    color: rgba(201,148,58,0.8);
+    letter-spacing: 0.3em;
+    margin-top: 0.3rem;
+    animation: fadeUp 1s 0.5s ease forwards;
+    opacity: 0;
+  }
+
+  .gold-rule {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem auto;
+    max-width: 400px;
+    animation: fadeUp 1s 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .gold-rule::before, .gold-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .gold-rule span {
+    color: var(--gold);
+    font-size: 1.1rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: rgba(240,230,204,0.7);
+    font-style: italic;
+    font-weight: 300;
+    max-width: 440px;
+    line-height: 1.9;
+    animation: fadeUp 1s 0.7s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-location {
+    margin-top: 1.2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    animation: fadeUp 1s 0.8s ease forwards;
+    opacity: 0;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 1s 0.9s ease forwards;
+    opacity: 0;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%);
+    color: var(--navy);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: all 0.3s;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    box-shadow: 0 4px 20px rgba(201,148,58,0.4);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(201,148,58,0.6);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+  }
+
+  .btn-outline:hover {
+    background: rgba(201,148,58,0.1);
+    transform: translateY(-3px);
+  }
+
+  /* ===== SECTION HEADERS ===== */
+  .sec-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .sec-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+
+  .sec-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold2), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ===== CARDÁPIO / SERVICES ===== */
+  #cardapio {
+    padding: 6rem 2rem;
+    background:
+      linear-gradient(180deg, var(--navy) 0%, #0d2040 50%, var(--navy) 100%);
+    position: relative;
+  }
+
+  #cardapio::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  #cardapio::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .cards-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .pkg-card {
+    border: 1px solid rgba(201,148,58,0.3);
+    padding: 2.5rem 2rem;
+    position: relative;
+    background: linear-gradient(135deg, rgba(14,33,71,0.8) 0%, rgba(11,26,53,0.9) 100%);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+  }
+
+  .pkg-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .pkg-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(201,148,58,0.15);
+    border-color: var(--gold);
+  }
+
+  .pkg-card.featured {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(26,52,96,0.9) 0%, rgba(14,33,71,0.95) 100%);
+  }
+
+  .pkg-card.featured::after {
+    content: 'MAIS POPULAR';
+    position: absolute;
+    top: 1rem; right: -2rem;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    padding: 0.3rem 3rem;
+    transform: rotate(45deg);
+    font-weight: 700;
+  }
+
+  .pkg-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .pkg-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .pkg-price {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+    filter: drop-shadow(0 0 10px rgba(201,148,58,0.4));
+  }
+
+  .pkg-price-note {
+    font-size: 0.75rem;
+    color: rgba(201,148,58,0.6);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  .pkg-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,148,58,0.4), transparent);
+    margin: 1.5rem 0;
+  }
+
+  .pkg-features {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1rem;
+  }
+
+  .pkg-features li {
+    font-size: 0.82rem;
+    color: rgba(240,230,204,0.8);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    line-height: 1.5;
+  }
+
+  .pkg-features li::before {
+    content: '✓';
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.75rem;
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+  }
+
+  /* ===== SOBRE ===== */
+  #sobre {
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .sobre-text {
+    font-size: 1.05rem;
+    color: rgba(240,230,204,0.75);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 2;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .sobre-stats {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--gold2), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: rgba(201,148,58,0.6);
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+    display: block;
+  }
+
+  /* ===== GALLERY ===== */
+  #galeria {
+    padding: 6rem 2rem;
+    background: #090f1e;
+    position: relative;
+  }
+
+  #galeria::before, #galeria::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  #galeria::before { top: 0; }
+  #galeria::after { bottom: 0; }
+
+  .gallery-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 220px 220px;
+    gap: 8px;
+  }
+
+  .g-item {
+    background: var(--blue-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 1px solid rgba(201,148,58,0.15);
+    transition: border-color 0.3s;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .g-item:first-child { grid-row: span 2; }
+
+  .g-item:hover { border-color: rgba(201,148,58,0.5); }
+
+  .g-item::before {
+    content: attr(data-label);
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: rgba(201,148,58,0.3);
+    text-transform: uppercase;
+  }
+
+  .g-icon {
+    font-size: 2.2rem;
+    opacity: 0.3;
+  }
+
+  .gallery-note {
+    text-align: center;
+    margin-top: 1.2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: rgba(201,148,58,0.4);
+    text-transform: uppercase;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ===== CTA / CONTATO ===== */
+  #contato {
+    padding: 7rem 2rem;
+    text-align: center;
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 80%, rgba(30,74,138,0.35) 0%, transparent 70%),
+      var(--navy);
+  }
+
+  .contact-phone {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    background: linear-gradient(135deg, var(--gold2), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 1.5rem 0 0.5rem;
+    filter: drop-shadow(0 0 15px rgba(201,148,58,0.3));
+  }
+
+  .contact-insta {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: rgba(201,148,58,0.7);
+    margin-bottom: 2.5rem;
+  }
+
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.2rem 3.5rem;
+    background: linear-gradient(135deg, #1db954, #25d366);
+    color: #fff;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: all 0.3s;
+    clip-path: polygon(14px 0%, 100% 0%, calc(100% - 14px) 100%, 0% 100%);
+    box-shadow: 0 4px 25px rgba(37,211,102,0.3);
+  }
+
+  .whatsapp-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px rgba(37,211,102,0.5);
+  }
+
+  .address-info {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .address-info p {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: rgba(201,148,58,0.5);
+    text-transform: uppercase;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    border-top: 1px solid rgba(201,148,58,0.2);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-copy {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    color: rgba(201,148,58,0.35);
+    text-transform: uppercase;
+  }
+
+  /* ===== STRIPE TOP ===== */
+  .gold-stripe {
+    height: 4px;
+    background: linear-gradient(90deg,
+      var(--navy) 0%,
+      var(--gold) 20%,
+      var(--gold2) 50%,
+      var(--gold) 80%,
+      var(--navy) 100%
+    );
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.08); opacity: 1; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .gallery-grid {
+      grid-template-columns: repeat(2,1fr);
+      grid-template-rows: auto;
+    }
+    .g-item:first-child { grid-row: span 1; }
+    .pkg-features { grid-template-columns: 1fr; }
+    .sobre-stats { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="gold-stripe"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">🏍 Barba Auto SPA</div>
+  <ul class="nav-links">
+    <li><a href="#cardapio">Cardápio</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="hero-logo-wrap">
+    <img src="/mnt/user-data/uploads/1000226114.webp" alt="Barba Auto SPA Logo">
+  </div>
+
+  <p class="hero-tagline">✦ Est. 2026 — Campo Limpo Paulista, Brazil ✦</p>
+  <h1 class="hero-title">Barba</h1>
+  <p class="hero-subtitle">AUTO SPA</p>
+
+  <div class="gold-rule"><span>✦</span></div>
+
+  <p class="hero-desc">Cuidado premium para a sua moto. Do detalhe que faz toda a diferença.</p>
+  <p class="hero-location">📍 Campo Limpo Paulista, SP</p>
+
+  <div class="cta-group">
+    <a href="https://wa.me/5511989682291" class="btn-primary" target="_blank">
+      📲 Agendar pelo WhatsApp
+    </a>
+    <a href="#cardapio" class="btn-outline">Ver Cardápio</a>
+  </div>
+</header>
+
+<!-- CARDÁPIO -->
+<section id="cardapio">
+  <div class="sec-header">
+    <span class="sec-eyebrow">✦ Nossos Pacotes ✦</span>
+    <h2 class="sec-title">Cardápio</h2>
+    <p style="font-style:italic; color:rgba(201,148,58,0.6); font-size:0.85rem; margin-top:0.5rem; letter-spacing:0.1em;">Cuidado Premium para sua Moto</p>
+  </div>
+
+  <div class="cards-wrap">
+
+    <!-- PADRÃO -->
+    <div class="pkg-card">
+      <span class="pkg-icon">🕐</span>
+      <div class="pkg-name">Lavagem Padrão</div>
+      <div class="pkg-price">R$ 60</div>
+      <div class="pkg-price-note">a partir de</div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>Detalhamento das rodas</li>
+        <li>Secagem com ar</li>
+        <li>Limpeza dos plásticos</li>
+        <li>Descontaminação ferrosa simples</li>
+        <li>Shampoo hidratante</li>
+      </ul>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="pkg-card featured">
+      <span class="pkg-icon">👑</span>
+      <div class="pkg-name">Lavagem Premium</div>
+      <div class="pkg-price">R$ 150</div>
+      <div class="pkg-price-note">a partir de</div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>Todos os itens Padrão</li>
+        <li>Revitalização de Plásticos</li>
+        <li>Limpeza completa da relação</li>
+        <li>Aplicação de Verniz no Motor</li>
+        <li>Cera manual</li>
+        <li>Revitalização de Plásticos</li>
+      </ul>
+    </div>
+
+    <!-- DETALHAMENTO -->
+    <div class="pkg-card">
+      <span class="pkg-icon">🔧</span>
+      <div class="pkg-name">Detalhamento Técnico</div>
+      <div class="pkg-price">R$ 450</div>
+      <div class="pkg-price-note">a partir de</div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-features">
+        <li>Todos os itens Premium</li>
+        <li>Polimento para brilho</li>
+        <li>Descontaminação de pintura</li>
+        <li>Aplicação de selante</li>
+        <li>Limpeza interna das carenagens</li>
+        <li>Cristalização</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div style="text-align:center; margin-top:3rem;">
+    <p style="font-family:'Cinzel Decorative',serif; font-size:1.1rem; color:var(--gold); letter-spacing:0.1em;">
+      ★ Detalhe que faz diferença! ★
+    </p>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="sec-header">
+    <span class="sec-eyebrow">✦ Quem Somos ✦</span>
+    <h2 class="sec-title">Sobre Nós</h2>
+  </div>
+  <p class="sobre-text">
+    A Barba Auto SPA nasceu da paixão por motos e pelo cuidado de verdade. Somos especialistas em estética automotiva para motocicletas, com técnicas premium, produtos de alta qualidade e um compromisso: deixar a sua moto impecável.
+  </p>
+  <div class="sobre-stats">
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Comprometimento</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Pacotes Premium</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">2026</span>
+      <span class="stat-label">Fundação</span>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<div id="galeria">
+  <div class="sec-header">
+    <span class="sec-eyebrow">✦ Nossos Trabalhos ✦</span>
+    <h2 class="sec-title">Galeria</h2>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="g-item" data-label="Foto Principal">
+      <span class="g-icon">📸</span>
+    </div>
+    <div class="g-item" data-label="Antes & Depois">
+      <span class="g-icon">✨</span>
+    </div>
+    <div class="g-item" data-label="Detalhamento">
+      <span class="g-icon">🔬</span>
+    </div>
+    <div class="g-item" data-label="Lavagem">
+      <span class="g-icon">💧</span>
+    </div>
+    <div class="g-item" data-label="Resultado Final">
+      <span class="g-icon">🏍️</span>
+    </div>
+  </div>
+
+  <p class="gallery-note" style="margin-top:1.2rem;">✦ Espaços reservados para suas fotos reais ✦</p>
+</div>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="sec-header">
+    <span class="sec-eyebrow">✦ Fale Conosco ✦</span>
+    <h2 class="sec-title">Agende Agora</h2>
+  </div>
+
+  <div class="contact-phone">(11) 98968-2291</div>
+  <div class="contact-insta">📸 @barbaautospa</div>
+
+  <a href="https://wa.me/5511989682291?text=Olá!%20Quero%20agendar%20um%20serviço%20na%20Barba%20Auto%20SPA!"
+     class="whatsapp-btn" target="_blank">
+    📲 &nbsp;Chamar no WhatsApp
+  </a>
+
+  <div class="address-info">
+    <p>📍 Campo Limpo Paulista — SP, Brazil</p>
+    <p>🕐 Seg a Sáb: 8h às 18h</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Barba Auto SPA</div>
+  <p class="footer-copy">© 2026 Barba Auto SPA — Campo Limpo Paulista, Brazil — Todos os direitos reservados</p>
+</footer>
+
+<div class="gold-stripe"></div>
+
+</body>
+</html>
